@@ -34,7 +34,7 @@ jobs:
             vtacic/site-verstapen:${{ github.sha }}
 
       - name: Deploy website
-        shell: pwsh
+        shell: powershell
         run: |
           docker pull vtacic/site-verstapen:latest
 
