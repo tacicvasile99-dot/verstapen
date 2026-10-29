@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
   build-and-push:
@@ -20,9 +21,14 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build si push
+      - name: Configureaza Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build si push imagine
         uses: docker/build-push-action@v6
         with:
           context: .
           push: true
-          tags: vtacic/site-verstapen:latest
+          tags: |
+            vtacic/site-verstapen:latest
+            vtacic/site-verstapen:${{ github.sha }}
