@@ -1,3 +1,1194 @@
-<h1>Salut, sunt Vasile - versiunea 1</h1>
 
-<h1>DEVops</h1>
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#10100f">
+  <title>SHINGEKI — Beyond the Walls</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #10100f;
+      --panel: #191917;
+      --white: #eee9df;
+      --muted: #a5a097;
+      --red: #b72e26;
+      --gold: #c9a875;
+      --line: rgba(238, 233, 223, .15);
+      --serif: "Cinzel", Georgia, serif;
+      --sans: "Inter", Arial, sans-serif;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 90px;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: var(--sans);
+      overflow-x: hidden;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 20;
+      opacity: .11;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.2'/%3E%3C/svg%3E");
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .container {
+      width: min(1160px, 90%);
+      margin: auto;
+    }
+
+    .eyebrow {
+      color: var(--gold);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+    }
+
+    .section-title {
+      font: 500 clamp(30px, 4vw, 49px)/1.15 var(--serif);
+      margin-top: 18px;
+      max-width: 700px;
+    }
+
+    .section-description {
+      color: var(--muted);
+      line-height: 1.9;
+      font-size: 14px;
+      max-width: 540px;
+      margin-top: 18px;
+    }
+
+    /* NAVIGATION */
+
+    header {
+      position: fixed;
+      z-index: 30;
+      width: 100%;
+      top: 0;
+      left: 0;
+      border-bottom: 1px solid transparent;
+      transition: .3s;
+    }
+
+    header.scrolled {
+      background: rgba(16, 16, 15, .94);
+      backdrop-filter: blur(16px);
+      border-bottom-color: var(--line);
+    }
+
+    nav {
+      height: 78px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 25px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font: 700 17px var(--serif);
+      letter-spacing: 3px;
+      white-space: nowrap;
+    }
+
+    .brand-mark {
+      width: 32px;
+      height: 38px;
+      color: var(--gold);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 29px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: #c9c4bb;
+      font-size: 11px;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      transition: color .25s;
+    }
+
+    .nav-links a:hover {
+      color: var(--gold);
+    }
+
+    .nav-cta {
+      border: 1px solid rgba(201, 168, 117, .55);
+      padding: 12px 17px;
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      transition: .25s;
+    }
+
+    .nav-cta:hover {
+      background: var(--gold);
+      color: #111;
+    }
+
+    .menu-toggle {
+      display: none;
+      color: white;
+      background: none;
+      border: 0;
+      font-size: 26px;
+      cursor: pointer;
+    }
+
+    /* HERO */
+
+    .hero {
+      position: relative;
+      min-height: 780px;
+      min-height: 100svh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      background:
+        linear-gradient(90deg, rgba(11, 12, 12, .96) 0%,
+          rgba(11, 12, 12, .76) 42%,
+          rgba(11, 12, 12, .22) 100%),
+        linear-gradient(0deg, var(--bg) 0%, transparent 35%),
+        url("https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&fit=crop&w=2200&q=90")
+        center 45% / cover;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,.35), transparent 30%);
+    }
+
+    .hero::after {
+      content: "自由";
+      position: absolute;
+      right: -20px;
+      top: 12%;
+      font: 800 clamp(140px, 25vw, 340px)/1 var(--serif);
+      color: rgba(238, 233, 223, .035);
+      writing-mode: vertical-rl;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding-top: 100px;
+      padding-bottom: 85px;
+      animation: enter 1s ease both;
+    }
+
+    .hero-kicker {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      margin-bottom: 30px;
+    }
+
+    .hero-kicker::before {
+      content: "";
+      width: 40px;
+      height: 1px;
+      background: var(--red);
+    }
+
+    .hero-kicker span {
+      font-size: 10px;
+      color: #d2c9b9;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+    }
+
+    .hero h1 {
+      font: 500 clamp(56px, 9.3vw, 118px)/.99 var(--serif);
+      letter-spacing: -3px;
+      max-width: 850px;
+    }
+
+    .hero h1 span {
+      display: block;
+      color: var(--red);
+      font-weight: 700;
+    }
+
+    .hero-subtitle {
+      color: #d0cbc1;
+      margin-top: 28px;
+      max-width: 430px;
+      font-size: 14px;
+      line-height: 1.9;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+      margin-top: 38px;
+      flex-wrap: wrap;
+    }
+
+    .button {
+      min-height: 49px;
+      padding: 0 24px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: .3s;
+    }
+
+    .button-primary {
+      color: white;
+      background: var(--red);
+      border: 1px solid var(--red);
+    }
+
+    .button-primary:hover {
+      background: #d03b30;
+      transform: translateY(-2px);
+    }
+
+    .button-secondary {
+      border: 1px solid rgba(238, 233, 223, .35);
+      background: transparent;
+      color: var(--white);
+    }
+
+    .button-secondary:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    .hero-bottom {
+      position: absolute;
+      bottom: 48px;
+      left: 0;
+      right: 0;
+      z-index: 2;
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+    }
+
+    .hero-note {
+      color: #a9a49b;
+      font-size: 10px;
+      letter-spacing: 2px;
+      line-height: 2;
+      text-transform: uppercase;
+    }
+
+    .scroll-note {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: #bcb5a9;
+      font-size: 9px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .scroll-line {
+      height: 40px;
+      width: 1px;
+      background: linear-gradient(var(--gold), transparent);
+    }
+
+    /* DIVIDER */
+
+    .marquee {
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 19px 0;
+      overflow: hidden;
+      background: #151513;
+    }
+
+    .marquee-inner {
+      display: flex;
+      justify-content: center;
+      gap: clamp(25px, 5vw, 70px);
+      align-items: center;
+      flex-wrap: wrap;
+      color: #bbb4a8;
+      font: 11px var(--serif);
+      letter-spacing: 3px;
+    }
+
+    .marquee-inner span:nth-child(even) {
+      color: var(--red);
+      font-size: 16px;
+    }
+
+    /* STORY */
+
+    .story {
+      padding: 130px 0;
+    }
+
+    .story-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 90px;
+      align-items: center;
+    }
+
+    .story-visual {
+      min-height: 500px;
+      position: relative;
+      background:
+        linear-gradient(0deg, rgba(10,10,10,.3), rgba(10,10,10,.08)),
+        url("https://images.unsplash.com/photo-1473448912268-2022ce9509d8?auto=format&fit=crop&w=1000&q=85")
+        center / cover;
+    }
+
+    .story-visual::before {
+      content: "";
+      position: absolute;
+      inset: 18px -18px -18px 18px;
+      border: 1px solid rgba(201,168,117,.45);
+      z-index: -1;
+    }
+
+    .story-stamp {
+      position: absolute;
+      left: -22px;
+      bottom: 35px;
+      background: var(--red);
+      padding: 19px 23px;
+      font: 12px var(--serif);
+      letter-spacing: 2px;
+      line-height: 1.7;
+    }
+
+    .story-copy {
+      padding: 20px 0;
+    }
+
+    .story-copy .section-title {
+      font-size: clamp(32px, 4vw, 48px);
+    }
+
+    .story-copy p {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 2;
+      margin-top: 19px;
+    }
+
+    .story-signature {
+      border-top: 1px solid var(--line);
+      margin-top: 30px;
+      padding-top: 23px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      font: 12px var(--serif);
+      color: var(--gold);
+      letter-spacing: 1px;
+    }
+
+    .story-signature strong {
+      color: var(--white);
+      font-weight: 500;
+    }
+
+    /* CHARACTERS */
+
+    .characters {
+      padding: 110px 0 125px;
+      background: #151513;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .section-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 30px;
+      margin-bottom: 45px;
+    }
+
+    .section-heading .section-title {
+      margin-bottom: 0;
+    }
+
+    .section-heading > p {
+      color: var(--muted);
+      max-width: 280px;
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    .character-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .character-card {
+      position: relative;
+      min-height: 450px;
+      overflow: hidden;
+      background: #23221e;
+      isolation: isolate;
+    }
+
+    .character-image {
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      background-position: center;
+      background-size: cover;
+      transition: transform .7s cubic-bezier(.2,.8,.2,1);
+      filter: saturate(.65);
+    }
+
+    .character-card:nth-child(1) .character-image {
+      background-image: url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=800&q=85");
+    }
+
+    .character-card:nth-child(2) .character-image {
+      background-image: url("https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=800&q=85");
+    }
+
+    .character-card:nth-child(3) .character-image {
+      background-image: url("https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=85");
+    }
+
+    .character-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background: linear-gradient(0deg, rgba(10,10,10,.98) 0%,
+        rgba(10,10,10,.58) 38%, rgba(10,10,10,.03) 100%);
+    }
+
+    .character-card:hover .character-image {
+      transform: scale(1.07);
+    }
+
+    .character-number {
+      position: absolute;
+      top: 23px;
+      left: 23px;
+      font: 13px var(--serif);
+      color: var(--gold);
+      letter-spacing: 2px;
+    }
+
+    .character-content {
+      position: absolute;
+      left: 25px;
+      right: 25px;
+      bottom: 28px;
+    }
+
+    .character-role {
+      color: var(--gold);
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 2.5px;
+    }
+
+    .character-content h3 {
+      font: 500 29px var(--serif);
+      margin-top: 10px;
+    }
+
+    .character-content p {
+      color: #bdb7ad;
+      font-size: 12px;
+      line-height: 1.8;
+      margin-top: 12px;
+      max-width: 290px;
+    }
+
+    .character-line {
+      height: 1px;
+      width: 35px;
+      background: var(--red);
+      margin-top: 18px;
+      transition: width .3s;
+    }
+
+    .character-card:hover .character-line {
+      width: 75px;
+    }
+
+    /* QUOTE */
+
+    .quote-section {
+      padding: 130px 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(rgba(13,13,12,.86), rgba(13,13,12,.93)),
+        url("https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1800&q=85")
+        center / cover;
+    }
+
+    .quote-mark {
+      color: var(--red);
+      font: 100px/.8 Georgia, serif;
+    }
+
+    .quote-section blockquote {
+      max-width: 850px;
+      margin: 25px auto 0;
+      font: 500 clamp(25px, 4.2vw, 47px)/1.5 var(--serif);
+    }
+
+    .quote-section blockquote span {
+      color: var(--gold);
+    }
+
+    .quote-author {
+      margin-top: 28px;
+      color: var(--muted);
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    .quote-disclaimer {
+      color: #77736b;
+      font-size: 10px;
+      margin-top: 45px;
+    }
+
+    /* FINAL CTA */
+
+    .final-cta {
+      padding: 105px 0;
+      background: var(--red);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .final-cta::after {
+      content: "進撃";
+      position: absolute;
+      right: 5%;
+      top: -40px;
+      font: 800 clamp(120px, 23vw, 270px)/1 var(--serif);
+      color: rgba(0,0,0,.09);
+      pointer-events: none;
+    }
+
+    .cta-content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 30px;
+    }
+
+    .cta-content .eyebrow {
+      color: #f3c3a8;
+    }
+
+    .cta-content h2 {
+      font: 500 clamp(30px, 5vw, 57px)/1.2 var(--serif);
+      margin-top: 15px;
+      max-width: 680px;
+    }
+
+    .cta-content p {
+      margin-top: 16px;
+      font-size: 13px;
+      line-height: 1.8;
+      color: #f3d8cf;
+    }
+
+    .cta-content .button {
+      flex-shrink: 0;
+      background: #141413;
+      border-color: #141413;
+    }
+
+    .cta-content .button:hover {
+      background: #2a2926;
+    }
+
+    /* FOOTER */
+
+    footer {
+      padding: 32px 0;
+      background: #10100f;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .footer-copy {
+      color: #77736b;
+      font-size: 10px;
+      line-height: 1.9;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 20px;
+      color: #aaa398;
+      font-size: 10px;
+    }
+
+    .footer-links a:hover {
+      color: var(--gold);
+    }
+
+    /* REVEAL ANIMATION */
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .8s ease, transform .8s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @keyframes enter {
+      from {
+        opacity: 0;
+        transform: translateY(22px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation: none !important;
+        transition: none !important;
+      }
+
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 850px) {
+      .nav-links {
+        gap: 15px;
+      }
+
+      .nav-links a {
+        font-size: 9px;
+      }
+
+      .nav-cta {
+        display: none;
+      }
+
+      .story-grid {
+        gap: 45px;
+      }
+
+      .story-visual {
+        min-height: 420px;
+      }
+
+      .character-card {
+        min-height: 390px;
+      }
+
+      .character-content {
+        left: 17px;
+        right: 17px;
+      }
+
+      .cta-content {
+        align-items: start;
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .container {
+        width: 88%;
+      }
+
+      nav {
+        height: 68px;
+      }
+
+      .brand {
+        font-size: 14px;
+        letter-spacing: 2px;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 68px;
+        left: 0;
+        right: 0;
+        padding: 22px 6%;
+        background: rgba(16,16,15,.98);
+        border-bottom: 1px solid var(--line);
+        flex-direction: column;
+        align-items: start;
+        gap: 23px;
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .nav-links a {
+        font-size: 11px;
+      }
+
+      .hero {
+        min-height: 780px;
+        min-height: 100svh;
+        background-position: 58% center;
+      }
+
+      .hero h1 {
+        font-size: clamp(50px, 13vw, 75px);
+        letter-spacing: -2px;
+      }
+
+      .hero-subtitle {
+        max-width: 330px;
+        font-size: 13px;
+      }
+
+      .hero-bottom {
+        bottom: 25px;
+      }
+
+      .hero-note {
+        font-size: 8px;
+      }
+
+      .scroll-note {
+        font-size: 8px;
+      }
+
+      .marquee-inner {
+        gap: 15px;
+        font-size: 9px;
+        letter-spacing: 1.5px;
+      }
+
+      .story {
+        padding: 85px 0;
+      }
+
+      .story-grid {
+        grid-template-columns: 1fr;
+        gap: 45px;
+      }
+
+      .story-visual {
+        min-height: 370px;
+        margin-right: 14px;
+        margin-bottom: 10px;
+      }
+
+      .story-copy {
+        padding-top: 10px;
+      }
+
+      .section-heading {
+        flex-direction: column;
+        align-items: start;
+        gap: 15px;
+      }
+
+      .characters {
+        padding: 85px 0;
+      }
+
+      .character-grid {
+        grid-template-columns: 1fr;
+        gap: 17px;
+      }
+
+      .character-card {
+        min-height: 430px;
+      }
+
+      .quote-section {
+        padding: 95px 0;
+      }
+
+      .quote-section blockquote {
+        font-size: 26px;
+      }
+
+      .final-cta {
+        padding: 75px 0;
+      }
+
+      .footer-inner {
+        align-items: start;
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header id="header">
+    <nav class="container">
+      <a href="#home" class="brand" aria-label="Shingeki - pagina principală">
+        <svg class="brand-mark" viewBox="0 0 40 48" fill="none"
+             xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M20 2L35 10V29L20 46L5 29V10L20 2Z"
+                stroke="currentColor" stroke-width="1.5"/>
+          <path d="M20 8L28 14L23 23L31 29L20 40L15 28L10 24L17 16L20 8Z"
+                fill="currentColor" opacity=".85"/>
+        </svg>
+        <span>SHINGEKI</span>
+      </a>
+
+      <div class="nav-links" id="navLinks">
+        <a href="#story">Povestea</a>
+        <a href="#characters">Personaje</a>
+        <a href="#manifesto">Filosofie</a>
+        <a href="#final">Dincolo de ziduri</a>
+      </div>
+
+      <a class="nav-cta" href="#characters">Explorează universul ↗</a>
+
+      <button class="menu-toggle" id="menuToggle"
+              aria-label="Deschide meniul" aria-expanded="false">
+        ☰
+      </button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero" id="home">
+      <div class="container hero-content">
+        <div class="hero-kicker">
+          <span>Un univers fără limite</span>
+        </div>
+
+        <h1>
+          BEYOND
+          <span>THE WALLS.</span>
+        </h1>
+
+        <p class="hero-subtitle">
+          Într-o lume în care libertatea are un preț, fiecare alegere
+          poate schimba destinul omenirii. Zidurile ne protejează.
+          Dar oare ne și țin prizonieri?
+        </p>
+
+        <div class="hero-actions">
+          <a class="button button-primary" href="#story">
+            Descoperă povestea <span>↗</span>
+          </a>
+          <a class="button button-secondary" href="#characters">
+            Intră în univers <span>→</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="container hero-bottom">
+        <div class="hero-note">
+          SHINZOU WO SASAGEYO<br>
+          <span style="color:var(--gold)">DEDICĂ-ȚI INIMA.</span>
+        </div>
+        <a class="scroll-note" href="#story">
+          <span>Scroll to discover</span>
+          <span class="scroll-line"></span>
+        </a>
+      </div>
+    </section>
+
+    <!-- ATMOSPHERIC DIVIDER -->
+    <div class="marquee" aria-label="Teme ale universului">
+      <div class="container marquee-inner">
+        <span>FREEDOM</span>
+        <span>✳</span>
+        <span>SACRIFICE</span>
+        <span>✳</span>
+        <span>HUMANITY</span>
+        <span>✳</span>
+        <span>DESTINY</span>
+      </div>
+    </div>
+
+    <!-- STORY -->
+    <section class="story" id="story">
+      <div class="container story-grid">
+        <div class="story-visual reveal">
+          <div class="story-stamp">
+            WALLS OF<br>HUMANITY
+          </div>
+        </div>
+
+        <div class="story-copy reveal">
+          <div class="eyebrow">01 / Lumea de dincolo</div>
+          <h2 class="section-title">
+            Când zidurile devin singura ta lume.
+          </h2>
+
+          <p>
+            Omenirea trăiește în umbra unor ziduri uriașe, protejată
+            de o amenințare pe care puțini o înțeleg. Dincolo de ele
+            se află necunoscutul, frica și adevăruri capabile să
+            răstoarne tot ceea ce oamenii credeau că știu.
+          </p>
+
+          <p>
+            Attack on Titan nu este doar o poveste despre supraviețuire.
+            Este o explorare a libertății, răzbunării, loialității și
+            a prețului pe care îl plătim pentru propriile convingeri.
+          </p>
+
+          <div class="story-signature">
+            <span>✳</span>
+            <div>
+              <strong>THE PRICE OF FREEDOM</strong><br>
+              <span style="color:var(--muted);font:10px var(--sans)">
+                Niciun adevăr nu vine fără un preț.
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CHARACTERS -->
+    <section class="characters" id="characters">
+      <div class="container">
+        <div class="section-heading reveal">
+          <div>
+            <div class="eyebrow">02 / Destine interconectate</div>
+            <h2 class="section-title">Trei perspective.<br>O singură lume.</h2>
+          </div>
+
+          <p>
+            Curajul, sacrificiul și dorința de a afla adevărul
+            pot transforma un om în erou sau în monstru.
+          </p>
+        </div>
+
+        <div class="character-grid">
+          <article class="character-card reveal">
+            <div class="character-image" aria-hidden="true"></div>
+            <span class="character-number">01 — THE WILL</span>
+            <div class="character-content">
+              <div class="character-role">Libertate / Destin</div>
+              <h3>Eren Yeager</h3>
+              <p>
+                O voință care refuză să accepte limitele lumii.
+                Dar cât de departe poți merge în numele libertății?
+              </p>
+              <div class="character-line"></div>
+            </div>
+          </article>
+
+          <article class="character-card reveal">
+            <div class="character-image" aria-hidden="true"></div>
+            <span class="character-number">02 — THE BLADE</span>
+            <div class="character-content">
+              <div class="character-role">Loialitate / Forță</div>
+              <h3>Mikasa Ackerman</h3>
+              <p>
+                Puterea de a lupta pentru cei pe care îi iubești,
+                chiar și atunci când lumea se prăbușește.
+              </p>
+              <div class="character-line"></div>
+            </div>
+          </article>
+
+          <article class="character-card reveal">
+            <div class="character-image" aria-hidden="true"></div>
+            <span class="character-number">03 — THE MIND</span>
+            <div class="character-content">
+              <div class="character-role">Cunoaștere / Speranță</div>
+              <h3>Armin Arlert</h3>
+              <p>
+                Uneori, cea mai puternică armă nu este sabia,
+                ci curajul de a vedea ceea ce ceilalți nu pot.
+              </p>
+              <div class="character-line"></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ORIGINAL MANIFESTO -->
+    <section class="quote-section" id="manifesto">
+      <div class="container reveal">
+        <div class="eyebrow">03 / Dincolo de frică</div>
+        <div class="quote-mark">“</div>
+
+        <blockquote>
+          Lumea îți va spune unde se termină drumul.
+          <span>Tu decizi dacă acolo se termină și visul.</span>
+        </blockquote>
+
+        <div class="quote-author">
+          Un gând original — Beyond the Walls
+        </div>
+
+        <p class="quote-disclaimer">
+          Inspirat de temele libertății și sacrificiului din Attack on Titan.
+        </p>
+      </div>
+    </section>
+
+    <!-- CALL TO ACTION -->
+    <section class="final-cta" id="final">
+      <div class="container cta-content reveal">
+        <div>
+          <div class="eyebrow">The world is waiting</div>
+          <h2>Nu toate zidurile sunt făcute din piatră.</h2>
+          <p>
+            Unele sunt construite din frică. Altele, din propriile noastre limite.
+          </p>
+        </div>
+
+        <a href="#home" class="button button-primary">
+          Întoarce-te la început ↑
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <div class="footer-copy">
+        <div class="brand" style="font-size:12px;margin-bottom:8px">
+          SHINGEKI <span style="color:var(--red)">✳</span>
+        </div>
+        Un fan-made concept inspired by Attack on Titan.<br>
+        © <span id="year"></span> — Created beyond the walls.
+      </div>
+
+      <div class="footer-links">
+        <a href="#story">Poveste</a>
+        <a href="#characters">Personaje</a>
+        <a href="#home">Sus ↑</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Header background on scroll
+    const header = document.getElementById("header");
+
+    function updateHeader() {
+      header.classList.toggle("scrolled", window.scrollY > 40);
+    }
+
+    window.addEventListener("scroll", updateHeader, { passive: true });
+    updateHeader();
+
+    // Mobile menu
+    const menuToggle = document.getElementById("menuToggle");
+    const navLinks = document.getElementById("navLinks");
+
+    menuToggle.addEventListener("click", () => {
+      const isOpen = navLinks.classList.toggle("open");
+      menuToggle.setAttribute("aria-expanded", String(isOpen));
+      menuToggle.textContent = isOpen ? "×" : "☰";
+    });
+
+    navLinks.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("open");
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.textContent = "☰";
+      });
+    });
+
+    // Reveal elements as they enter the viewport
+    const revealElements = document.querySelectorAll(".reveal");
+
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+
+      revealElements.forEach(element => observer.observe(element));
+    } else {
+      revealElements.forEach(element => element.classList.add("visible"));
+    }
+
+    // Current year
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+  </script>
+
+</body>
+</html>
