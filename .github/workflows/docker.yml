@@ -33,23 +33,15 @@ jobs:
             vtacic/site-verstapen:latest
             vtacic/site-verstapen:${{ github.sha }}
 
+      
       - name: Deploy website
-        shell: powershell
+        shell: cmd
         run: |
           docker pull vtacic/site-verstapen:latest
+          if errorlevel 1 exit /b 1
 
-          $existingContainer = docker ps -aq --filter "name=^/verstapen$"
+          docker rm -f verstapen 2>nul
 
-          if ($existingContainer) {
-            docker rm -f verstapen
-          }
+          docker run -d --name verstapen --restart unless-stopped -p 8080:80 vtacic/site-verstapen:latest
+          if errorlevel 1 exit /b 1
 
-          docker run -d `
-            --name verstapen `
-            --restart unless-stopped `
-            -p 8080:80 `
-            vtacic/site-verstapen:latest
-
-          if ($LASTEXITCODE -ne 0) {
-            throw "Deployment failed"
-          }
