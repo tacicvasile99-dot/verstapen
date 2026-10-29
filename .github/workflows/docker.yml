@@ -1,0 +1,5 @@
+name: Build si push imagine Docker
+on: push: branches: [ main ]
+jobs: build-and-push: runs-on: ubuntu-latest steps: - name: Descarca codul uses:actions/checkout@v4
+- name: Login la Docker Hub uses: docker/login-action@v3 with: username:${{ secrets.DOCKERHUB_USERNAME }} password: ${{secrets.DOCKERHUB_TOKEN }}
+- name: Build si push uses: docker/build-push-action@v6 with: context: . push: true tags: vtacic/site-vasile:latest
