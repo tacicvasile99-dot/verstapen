@@ -25,4 +25,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: vtacic/site-vasile:latest
+          tags: vtacic/site-verstapen:v1
