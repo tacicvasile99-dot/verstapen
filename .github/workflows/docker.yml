@@ -46,13 +46,8 @@ jobs:
           if errorlevel 1 exit /b 1
 
       - name: Update local repo
-        shell: powershell
+        shell: cmd
         run: |
-          cd C:\Users\user\verstapen
+          cd /d C:\Users\user\verstapen
           git fetch origin
-          $branch = git branch --show-current
-          if ($branch -eq "main") {
-            git pull --ff-only origin main
-          } else {
-            Write-Host "Local branch is $branch, skipping pull"
-          }
+          git pull --ff-only origin main
