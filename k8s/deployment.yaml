@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: site
-          image: vtacic/site-verstapen:latest
+          image: vtacic/site-verstapen:e2b7991a11d1ef0865c69421b9688511fbd22d97
           imagePullPolicy: Always
           ports:
             - containerPort: 80
