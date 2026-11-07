@@ -1,4 +1,3 @@
-
 name: Build and deploy Verstappen
 
 on:
@@ -8,9 +7,27 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-and-push:
+  test:
     runs-on: self-hosted
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
+      - name: Lint Dockerfile (hadolint)
+        shell: cmd
+        run: |
+          docker run --rm -i hadolint/hadolint < Dockerfile
+          if errorlevel 1 exit /b 1
+
+      - name: Validate Kubernetes manifests (kubeconform)
+        shell: cmd
+        run: |
+          docker run --rm -v "%CD%\k8s:/k8s" ghcr.io/yannh/kubeconform:latest-alpine -strict -summary /k8s
+          if errorlevel 1 exit /b 1
+
+  build-and-deploy:
+    needs: test
+    runs-on: self-hosted
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -21,19 +38,29 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: Build and push image
+      - name: Build image (local, not pushed yet)
         uses: docker/build-push-action@v6
         with:
           context: .
-          push: true
+          load: true
+          push: false
           tags: |
             vtacic/site-verstapen:latest
             vtacic/site-verstapen:${{ github.sha }}
 
-      
+      - name: Scan image (trivy, report only)
+        shell: cmd
+        run: |
+          docker run --rm -v //var/run/docker.sock:/var/run/docker.sock aquasec/trivy:latest image --severity HIGH,CRITICAL --ignore-unfixed --exit-code 0 vtacic/site-verstapen:${{ github.sha }}
+
+      - name: Push image
+        shell: cmd
+        run: |
+          docker push vtacic/site-verstapen:${{ github.sha }}
+          if errorlevel 1 exit /b 1
+          docker push vtacic/site-verstapen:latest
+          if errorlevel 1 exit /b 1
+
       - name: Deploy to Kubernetes
         shell: cmd
         run: |
@@ -44,7 +71,10 @@ jobs:
           if errorlevel 1 exit /b 1
 
           kubectl rollout status deployment/verstapen --timeout=120s
-          if errorlevel 1 exit /b 1
+          if errorlevel 1 (
+            kubectl rollout undo deployment/verstapen
+            exit /b 1
+          )
 
       - name: Update local repo
         shell: cmd
