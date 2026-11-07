@@ -67,7 +67,10 @@ jobs:
           kubectl config use-context docker-desktop
           if errorlevel 1 exit /b 1
 
-          kubectl set image deployment/verstapen site=vtacic/site-verstapen:${{ github.sha }}
+          kubectl apply -f k8s/service.yaml
+          if errorlevel 1 exit /b 1
+
+          kubectl set image --local -f k8s/deployment.yaml site=vtacic/site-verstapen:${{ github.sha }} -o yaml | kubectl apply -f -
           if errorlevel 1 exit /b 1
 
           kubectl rollout status deployment/verstapen --timeout=120s
