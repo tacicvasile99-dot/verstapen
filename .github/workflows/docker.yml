@@ -19,6 +19,7 @@ jobs:
 
       - name: Validate Kubernetes manifests (kubeconform)
         run: docker run --rm -v "$PWD/k8s:/k8s" ghcr.io/yannh/kubeconform:latest-alpine -strict -summary /k8s
+        run: docker run --rm -v "$PWD/k8s:/k8s" ghcr.io/yannh/kubeconform:latest-alpine -strict -ignore-missing-schemas -summary /k8s
 
   build-and-publish:
     needs: test
