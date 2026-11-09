@@ -1,0 +1,23 @@
+replicaCount: 2
+
+image:
+  repository: vtacic/site-verstapen
+  tag: bbc1839fbb4942b3abff864579a28d60689705b5
+  pullPolicy: Always
+
+service:
+  type: LoadBalancer
+  port: 8080
+  targetPort: 80
+
+secret:
+  name: verstapen-secret
+  key: DEMO_API_KEY
+
+resources:
+  requests:
+    cpu: 50m
+    memory: 32Mi
+  limits:
+    cpu: 200m
+    memory: 64Mi

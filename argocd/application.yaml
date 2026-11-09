@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/tacicvasile99-dot/verstapen.git
     targetRevision: main
-    path: k8s/overlays/prod
+    path: helm/verstapen
   destination:
     server: https://kubernetes.default.svc
     namespace: default
