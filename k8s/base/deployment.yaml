@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: verstapen
+spec:
+  replicas: 2
+  revisionHistoryLimit: 5
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app: verstapen
+  template:
+    metadata:
+      labels:
+        app: verstapen
+    spec:
+      containers:
+        - name: site
+          image: vtacic/site-verstapen:bbc1839fbb4942b3abff864579a28d60689705b5
+          imagePullPolicy: Always
+          env:
+            - name: DEMO_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: verstapen-secret
+                  key: DEMO_API_KEY         
+          ports:
+            - containerPort: 80
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 2
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          resources:
+            requests:
+              cpu: 50m
+              memory: 32Mi
+            limits:
+              cpu: 200m
+              memory: 64Mi
