@@ -59,10 +59,10 @@ jobs:
 
       - name: Update image tag in Git (Argo CD will deploy it)
         run: |
-          sed -i "s|^  tag: .*|  tag: ${{ github.sha }}|" helm/verstapen/values.yaml
+          sed -i "s|newTag: .*|newTag: ${{ github.sha }}|" k8s/overlays/prod/kustomization.yaml
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add helm/verstapen/values.yaml
+          git add k8s/overlays/prod/kustomization.yaml
           git commit -m "chore: deploy ${GITHUB_SHA::7} [skip ci]"
           git pull --rebase origin main
           git push origin HEAD:main
