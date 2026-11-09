@@ -22,6 +22,12 @@ spec:
         - name: site
           image: vtacic/site-verstapen:8a40d3c0ad38cf5618b531ff9982a2f54b95b73f
           imagePullPolicy: Always
+          env:
+            - name: DEMO_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: verstapen-secret
+                  key: DEMO_API_KEY         
           ports:
             - containerPort: 80
           readinessProbe:
