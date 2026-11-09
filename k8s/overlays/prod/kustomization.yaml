@@ -6,4 +6,4 @@ resources:
   - verstapen-sealedsecret.yaml
 images:
   - name: vtacic/site-verstapen
-    newTag: a6ecbf66dcb148a95b1b80e05a796540486fde1e
+    newTag: 8596695610171f861071eb65c060d09750303a98
