@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: site
-          image: vtacic/site-verstapen:890d8a15de1f2d73a9d5dc0db37458d5470aed22
+          image: vtacic/site-verstapen:bbc1839fbb4942b3abff864579a28d60689705b5
           imagePullPolicy: Always
           env:
             - name: DEMO_API_KEY
