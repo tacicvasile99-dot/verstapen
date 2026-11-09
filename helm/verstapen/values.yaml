@@ -2,7 +2,7 @@ replicaCount: 2
 
 image:
   repository: vtacic/site-verstapen
-  tag: bbc1839fbb4942b3abff864579a28d60689705b5
+  tag: 7fe2745f6e66796e57ba860a270a3547edcd3304
   pullPolicy: Always
 
 service:
