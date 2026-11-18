@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: verstapen
 spec:
-  replicas: 3
+  replicas: 4
   revisionHistoryLimit: 5
   strategy:
     type: RollingUpdate
